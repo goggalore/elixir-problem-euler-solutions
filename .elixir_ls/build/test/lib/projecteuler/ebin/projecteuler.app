@@ -1,0 +1,9 @@
+{application,projecteuler,
+             [{applications,[kernel,stdlib,elixir,logger]},
+              {description,"projecteuler"},
+              {modules,['Elixir.Factorial','Elixir.PE.Divisors',
+                        'Elixir.PE.Fibonacci','Elixir.PE.Fibonacci.Even',
+                        'Elixir.PE.Multiples','Elixir.PE.Prime.Factors',
+                        'Elixir.Prime','Elixir.ProjectEuler']},
+              {registered,[]},
+              {vsn,"0.1.0"}]}.
