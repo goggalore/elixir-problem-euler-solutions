@@ -9,49 +9,47 @@ defmodule PE.Prime.Factors do
   What is the largest prime factor of the number 600851475143?
 
   """
-
   @spec list(non_neg_integer) :: [non_neg_integer]
-  def list(dividend) do
-    PE.Divisors.list(dividend)
-    |> Enum.filter(&Prime.is_prime?/1)
+  def list(n) do
+    initial_primes = if rem(n, 2) == 0, do: [2], else: []
+    list(n, 3, initial_primes, :math.sqrt(n))
   end
 
-  @spec max(non_neg_integer) :: non_neg_integer
-  def max(dividend) do
-    list(dividend)
-    |> Enum.max()
-  end
-end
+  defp list(n, factor, last_prime_factors, max_factor) do
+    case rem(n, factor) == 0 do
+      true when factor < max_factor ->
+        if multiple_of_primes?(factor, last_prime_factors) do
+          list(n, factor + 2, last_prime_factors, max_factor)
+        else
+          list(n, factor + 2, [factor | last_prime_factors], max_factor)
+        end
 
-defmodule PE.Divisors do
-  @moduledoc """
-  Documentation for `Pe.Divisors`
-  """
+      false when factor < max_factor ->
+        list(n, factor + 2, last_prime_factors, max_factor)
 
-  ## Finds all divisors of a given number that are not 1 or the dividend itself
-  @spec list(non_neg_integer) :: [non_neg_integer]
-  def list(dividend) do
-    square_bound = trunc(:math.sqrt(dividend))
-
-    get_divisor_and_result = fn divisor ->
-      case rem(dividend, divisor) do
-        0 ->
-          result = div(dividend, divisor)
-
-          case result do
-            1 -> []
-            ^dividend -> []
-            ^divisor -> [result]
-            _ -> [divisor, result]
-          end
-
-        _ ->
-          []
-      end
+      _ ->
+        find_last_factor(n, factor, last_prime_factors, max_factor)
     end
+  end
 
-    2..square_bound
-    |> Enum.map(get_divisor_and_result)
-    |> List.flatten()
+  defp multiple_of_primes?(n, prime_factors) do
+    Enum.any?(prime_factors, &(rem(n, &1) == 0))
+  end
+
+  defp find_last_factor(n, factor, prime_factors, max_factor) do
+    case rem(n, factor) == 0 do
+      true when factor < n ->
+        if multiple_of_primes?(factor, prime_factors) do
+          find_last_factor(n, factor + 2, prime_factors, max_factor)
+        else
+          [factor | prime_factors]
+        end
+
+      false when factor < n ->
+        find_last_factor(n, factor + 2, prime_factors, max_factor)
+
+      _ ->
+        prime_factors
+    end
   end
 end
