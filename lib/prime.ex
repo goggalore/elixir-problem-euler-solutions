@@ -9,12 +9,14 @@ defmodule Prime do
   """
   require Integer
 
-  @spec get_primes(non_neg_integer) :: [non_neg_integer]
   def is_prime?(n) do
     n in get_primes(n)
   end
 
   # note that this is the Sieve of Eratosthenes algorithm
+  @spec get_primes(non_neg_integer) :: [non_neg_integer]
+  def get_primes(n) when n < 2, do: []
+
   def get_primes(bound) do
     sqrt = trunc(:math.sqrt(bound))
 
@@ -38,5 +40,3 @@ defmodule Prime do
     end
   end
 end
-
-# defmodule(Prime.Fermat)
