@@ -9,47 +9,40 @@ defmodule PE.Prime.Factors do
   What is the largest prime factor of the number 600851475143?
 
   """
-  @spec list(non_neg_integer) :: [non_neg_integer]
-  def list(n) do
-    initial_primes = if rem(n, 2) == 0, do: [2], else: []
-    list(n, 3, initial_primes, :math.sqrt(n))
+  @spec max(non_neg_integer) :: non_neg_integer
+  def max(n) do
+    bound = :math.sqrt(n)
+    max(n, 2, bound)
   end
 
-  defp list(n, factor, last_prime_factors, max_factor) do
-    case rem(n, factor) == 0 do
-      true when factor < max_factor ->
-        if multiple_of_primes?(factor, last_prime_factors) do
-          list(n, factor + 2, last_prime_factors, max_factor)
-        else
-          list(n, factor + 2, [factor | last_prime_factors], max_factor)
-        end
+  defp max(n, current_factor, bound) do
+    i = if current_factor == 2, do: 1, else: 2
 
-      false when factor < max_factor ->
-        list(n, factor + 2, last_prime_factors, max_factor)
+    case rem(n, current_factor) == 0 do
+      true when current_factor < bound ->
+        new_n = divide_out(n, current_factor)
+        new_bound = :math.sqrt(new_n)
+        max(new_n, current_factor + i, new_bound)
 
-      _ ->
-        find_last_factor(n, factor, last_prime_factors, max_factor)
+      false when current_factor < bound ->
+        max(n, current_factor + i, bound)
+
+      true ->
+        current_factor
+
+      false ->
+        n
     end
   end
 
-  defp multiple_of_primes?(n, prime_factors) do
-    Enum.any?(prime_factors, &(rem(n, &1) == 0))
-  end
+  defp divide_out(dividend, divisor) do
+    case rem(dividend, divisor) == 0 do
+      true ->
+        div(dividend, divisor)
+        |> divide_out(divisor)
 
-  defp find_last_factor(n, factor, prime_factors, max_factor) do
-    case rem(n, factor) == 0 do
-      true when factor < n ->
-        if multiple_of_primes?(factor, prime_factors) do
-          find_last_factor(n, factor + 2, prime_factors, max_factor)
-        else
-          [factor | prime_factors]
-        end
-
-      false when factor < n ->
-        find_last_factor(n, factor + 2, prime_factors, max_factor)
-
-      _ ->
-        prime_factors
+      false ->
+        dividend
     end
   end
 end
