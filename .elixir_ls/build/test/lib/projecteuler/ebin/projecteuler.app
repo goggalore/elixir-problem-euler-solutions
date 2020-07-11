@@ -4,6 +4,6 @@
               {modules,['Elixir.Factorial','Elixir.Math',
                         'Elixir.PE.Fibonacci','Elixir.PE.Fibonacci.Even',
                         'Elixir.PE.Multiples','Elixir.PE.Prime.Factors',
-                        'Elixir.ProjectEuler']},
+                        'Elixir.Prime','Elixir.ProjectEuler']},
               {registered,[]},
               {vsn,"0.1.0"}]}.
