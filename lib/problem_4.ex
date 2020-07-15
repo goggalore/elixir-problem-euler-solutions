@@ -28,6 +28,7 @@ defmodule PE.Palindrome do
     half_length = div(length(digits), 2)
     {first, second} = Enum.split(digits, half_length)
 
+    # ERROR this will return the wrong bool for a number like 9898
     length(first -- second) == 0
   end
 
