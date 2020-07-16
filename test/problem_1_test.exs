@@ -3,8 +3,7 @@ defmodule PE.MultiplesTest do
 
   test "list multiples of 3 and 5 under 10" do
     multiples = PE.Multiples.list([3, 5, 6], 10)
-    difference = multiples -- [3, 5, 6, 9]
-    assert length(multiples) == 4 and length(difference) == 0
+    assert Enum.sort(multiples) == Enum.sort([3, 5, 6, 9])
   end
 
   test "sum multiples of 3 and 5 under 10" do
