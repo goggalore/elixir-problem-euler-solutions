@@ -11,27 +11,22 @@ defmodule PE.Palindrome do
   """
   require Integer
 
-  @spec palindrome?(non_neg_integer) :: bool
-  def palindrome?(n) when n < 10, do: true
+  @spec is_palindrome?(non_neg_integer) :: bool
+  def is_palindrome?(n) when n < 10, do: true
 
-  def palindrome?(n) do
+  def is_palindrome?(n) do
     digits = Integer.digits(n)
+    {first_half, second_half} = digits |> Enum.split(div(length(digits), 2))
 
-    if Integer.is_even(length(digits)) do
-      even_palindrome?(digits)
+    if Integer.is_even(length(second_half)) do
+      Enum.sort(first_half) == Enum.sort(second_half)
     else
-      odd_palindrome?(digits)
+      middle_removed = List.delete_at(second_half, 0)
+      Enum.sort(first_half) == Enum.sort(middle_removed)
     end
   end
 
-  defp even_palindrome?(digits) do
-    half_length = div(length(digits), 2)
-    {first, second} = Enum.split(digits, half_length)
-
-    # ERROR this will return the wrong bool for a number like 9898
-    length(first -- second) == 0
-  end
-
-  defp odd_palindrome?(digits) do
+  def max_palindrome_of_three_digit_pair_product() do
+    three_digit_numbers = 999..100
   end
 end
