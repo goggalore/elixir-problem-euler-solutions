@@ -18,15 +18,31 @@ defmodule PE.Palindrome do
     digits = Integer.digits(n)
     {first_half, second_half} = digits |> Enum.split(div(length(digits), 2))
 
-    if Integer.is_even(length(second_half)) do
-      Enum.sort(first_half) == Enum.sort(second_half)
+    if Integer.is_even(length(digits)) do
+      first_half == Enum.reverse(second_half)
     else
       middle_removed = List.delete_at(second_half, 0)
-      Enum.sort(first_half) == Enum.sort(middle_removed)
+      first_half == Enum.reverse(middle_removed)
     end
   end
 
   def max_palindrome_of_three_digit_pair_product() do
     three_digit_numbers = 999..100
+
+    three_digit_numbers
+    |> Enum.reduce(0, fn n, acc ->
+      p = get_max_palindromic_product(n)
+      if p > acc, do: p, else: acc
+    end)
+  end
+
+  defp get_max_palindromic_product(n) do
+    three_digit_numbers = 999..100
+
+    three_digit_numbers
+    |> Enum.reduce_while(0, fn m, _ ->
+      product = n * m
+      if is_palindrome?(product), do: {:halt, product}, else: {:cont, 0}
+    end)
   end
 end
