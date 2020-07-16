@@ -15,15 +15,11 @@ defmodule PE.Palindrome do
   def is_palindrome?(n) when n < 10, do: true
 
   def is_palindrome?(n) do
-    digits = Integer.digits(n)
-    {first_half, second_half} = digits |> Enum.split(div(length(digits), 2))
+    n == reverse(n, 0)
+  end
 
-    if Integer.is_even(length(digits)) do
-      first_half == Enum.reverse(second_half)
-    else
-      middle_removed = List.delete_at(second_half, 0)
-      first_half == Enum.reverse(middle_removed)
-    end
+  defp reverse(n, reversed) do
+    if n > 0, do: reverse(div(n, 10), 10 * reversed + rem(n, 10)), else: reversed
   end
 
   def max_palindrome_of_three_digit_pair_product() do
