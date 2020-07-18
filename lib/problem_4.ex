@@ -22,6 +22,7 @@ defmodule PE.Palindrome do
     if n > 0, do: reverse(div(n, 10), 10 * reversed + rem(n, 10)), else: reversed
   end
 
+  @spec max_palindrome_of_three_digit_pair_product :: integer
   def max_palindrome_of_three_digit_pair_product() do
     three_digit_numbers = 999..100
 
