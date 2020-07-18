@@ -3,6 +3,11 @@ defmodule Math do
   General useful math functions
   """
 
+  @spec multiple?(non_neg_integer, non_neg_integer) :: bool
+  def multiple?(divisor, dividend) do
+    rem(divisor, dividend) == 0
+  end
+
   # gets the multiples of a number n with a result smaller than bound
   @spec multiples(non_neg_integer, integer) :: [integer]
   def multiples(n, bound) do
