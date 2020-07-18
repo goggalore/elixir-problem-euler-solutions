@@ -10,14 +10,50 @@ defmodule Prime do
   require Integer
 
   def is_prime?(n) do
-    n in get_primes(n)
+    n in get_primes_with_bound(n)
+  end
+
+  def get_prime(index) do
+    get_primes(index)
+    |> Enum.fetch!(0)
   end
 
   # note that this is the Sieve of Eratosthenes algorithm
-  @spec get_primes(non_neg_integer) :: [non_neg_integer]
-  def get_primes(n) when n < 2, do: []
+  @spec get_primes(integer) :: [non_neg_integer]
+  def get_primes(index) when index < 2 do
+    []
+  end
 
-  def get_primes(bound) do
+  def get_primes(2), do: [2]
+  def get_primes(3), do: [3, 2]
+
+  def get_primes(index) do
+    primes = get_primes(3)
+    get_primes(index, 5, primes)
+  end
+
+  defp get_primes(index, current, prev_primes) do
+    is_multiple =
+      prev_primes
+      |> Enum.any?(&Math.multiple?(current, &1))
+
+    case is_multiple do
+      true when length(prev_primes) <= index ->
+        get_primes(index, current + 2, prev_primes)
+
+      false when length(prev_primes) <= index ->
+        get_primes(index, current + 2, [current | prev_primes])
+
+      _ ->
+        prev_primes
+    end
+  end
+
+  # note that this is the Sieve of Eratosthenes algorithm
+  @spec get_primes_with_bound(non_neg_integer) :: [non_neg_integer]
+  def get_primes_with_bound(n) when n < 2, do: []
+
+  def get_primes_with_bound(bound) do
     sqrt = trunc(:math.sqrt(bound))
 
     filter_odds = fn b -> Enum.filter(3..b, &Integer.is_odd/1) end
