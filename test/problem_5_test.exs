@@ -1,7 +1,7 @@
 defmodule PE.RangeDivisibleTest do
   use ExUnit.Case, async: true
 
-  test "The smallest number divisible by 1..10 is " do
+  test "The smallest number divisible by 1..10 is 2520" do
     assert PE.RangeDivisible.find(10) == 2520
   end
 
