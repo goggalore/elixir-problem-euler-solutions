@@ -5,6 +5,7 @@
                         'Elixir.PE.Fibonacci','Elixir.PE.Fibonacci.Even',
                         'Elixir.PE.Multiples','Elixir.PE.Palindrome',
                         'Elixir.PE.Prime','Elixir.PE.Prime.Factors',
-                        'Elixir.Prime','Elixir.ProjectEuler']},
+                        'Elixir.PE.RangeDivisible','Elixir.Prime',
+                        'Elixir.ProjectEuler']},
               {registered,[]},
               {vsn,"0.1.0"}]}.
