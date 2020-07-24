@@ -1,4 +1,4 @@
-defmodule PE.SumSquares do
+defmodule PE.SumSquaresTest do
   use ExUnit.Case, async: true
 
   test "The sum of squares of the first ten natural numbers is 385" do
