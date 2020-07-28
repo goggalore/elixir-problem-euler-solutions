@@ -19,6 +19,7 @@ defmodule PE.SeriesProduct do
 
   require Integer
 
+  @spec largest_product(non_neg_integer, non_neg_integer) :: non_neg_integer
   def largest_product(number, size) do
     sequence = Integer.digits(number)
 
