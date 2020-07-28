@@ -6,8 +6,6 @@ defmodule PE.SeriesProduct do
 
     sub_sequences = all_sub_sequences(sequence, size, [])
 
-    IO.puts(sub_sequences)
-
     sub_sequences
     |> Enum.map(fn sub_sequence -> Enum.reduce(sub_sequence, &*/2) end)
     |> Enum.max()
