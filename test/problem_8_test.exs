@@ -13,4 +13,10 @@ defmodule PE.SeriesProductTest do
   } do
     assert PE.SeriesProduct.largest_product(large_number, 4) == 5832
   end
+
+  test "The greatest product of 13 adjecent numbers in the large number is ", %{
+    large_number: large_number
+  } do
+    assert PE.SeriesProduct.largest_product(large_number, 13) == 23_514_624_000
+  end
 end
