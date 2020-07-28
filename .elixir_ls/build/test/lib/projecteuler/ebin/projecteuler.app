@@ -7,7 +7,7 @@
                         'Elixir.PE.Prime','Elixir.PE.Prime.Factors',
                         'Elixir.PE.RangeDivisible','Elixir.PE.SeriesProduct',
                         'Elixir.PE.SpecialPythagoreanTriplet',
-                        'Elixir.PE.SumSquare','Elixir.Prime',
-                        'Elixir.ProjectEuler']},
+                        'Elixir.PE.SumOfPrimes','Elixir.PE.SumSquare',
+                        'Elixir.Prime','Elixir.ProjectEuler']},
               {registered,[]},
               {vsn,"0.1.0"}]}.
