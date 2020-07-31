@@ -1,7 +1,8 @@
 defmodule PE.Grid do
   # @spec max_horizontal_product([[non_neg_integer]]) :: non_neg_integer
   def max_horizontal_product(grid, size) do
-    max_horizontal_product(grid, size, 0)
+    max_h = max_horizontal_product(grid, size, 0)
+    max_v = max_vertical_product(grid, size, 0)
   end
 
   defp max_horizontal_product(grid, size, current_max) do
@@ -30,6 +31,37 @@ defmodule PE.Grid do
     else
       [_ | remaining] = sequence
       all_sub_sequences(remaining, size, [sub_sequence | sub_sequences])
+    end
+  end
+
+  def max_vertical_product(grid, size, current_max) do
+    reversed_transpose = reverse_and_transpose(grid)
+    max_horizontal_product(reversed_transpose, size, current_max)
+  end
+
+  # we don't care if the tranpose is in order or not,
+  # so we reverse and tranpose because it's fast
+  def reverse_and_transpose(grid) do
+    reverse_and_transpose(grid, [], [], [])
+  end
+
+  defp reverse_and_transpose(grid, next_grid, current_column, columns) do
+    case grid do
+      [] ->
+        reverse_and_transpose(next_grid, [], [], [current_column | columns])
+
+      [row | _] when row == [] ->
+        columns
+
+      [row | remaining_grid] ->
+        [num | remaining_row] = row
+
+        reverse_and_transpose(
+          remaining_grid,
+          [remaining_row | next_grid],
+          [num | current_column],
+          columns
+        )
     end
   end
 
