@@ -11,7 +11,7 @@ defmodule PE.Grid do
 
       [row | remaining] ->
         current_row_max = max_row_product(row, size)
-        max = if current_row_max < current_max, do: current_row_max, else: current_max
+        max = if current_row_max < current_max, do: current_max, else: current_row_max
         max_horizontal_product(remaining, size, max)
     end
   end
