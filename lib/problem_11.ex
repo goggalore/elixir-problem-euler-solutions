@@ -3,6 +3,7 @@ defmodule PE.Grid do
   def max_horizontal_product(grid, size) do
     max_h = max_horizontal_product(grid, size, 0)
     max_v = max_vertical_product(grid, size, 0)
+    max_d = max_diagonal_product(grid, size, 0)
   end
 
   defp max_horizontal_product(grid, size, current_max) do
@@ -47,9 +48,6 @@ defmodule PE.Grid do
 
   defp reverse_and_transpose(grid, next_grid, current_column, columns) do
     case grid do
-      [] ->
-        reverse_and_transpose(next_grid, [], [], [current_column | columns])
-
       [row | _] when row == [] ->
         columns
 
@@ -62,6 +60,9 @@ defmodule PE.Grid do
           [num | current_column],
           columns
         )
+
+      [] ->
+        reverse_and_transpose(next_grid, [], [], [current_column | columns])
     end
   end
 
