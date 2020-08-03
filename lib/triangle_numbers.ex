@@ -1,6 +1,6 @@
 defmodule TriangleNumbers do
   @spec get_term(integer) :: integer
-  def get_term(n) when n < 0, do: 0
+  def get_term(n) when n < 1, do: 0
   def get_term(1), do: 1
 
   def get_term(n) do
