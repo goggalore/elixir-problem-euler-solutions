@@ -20,15 +20,15 @@ defmodule Prime do
 
   # note that this is the Sieve of Eratosthenes algorithm
   @spec get_primes(integer) :: [non_neg_integer]
-  def get_primes(index) when index < 2 do
+  def get_primes(index) when index < 0 do
     []
   end
 
-  def get_primes(2), do: [2]
-  def get_primes(3), do: [3, 2]
+  def get_primes(0), do: [2]
+  def get_primes(1), do: [3, 2]
 
   def get_primes(index) do
-    primes = get_primes(3)
+    primes = get_primes(1)
     get_primes(index, 5, primes)
   end
 
