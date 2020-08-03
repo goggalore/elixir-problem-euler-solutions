@@ -9,6 +9,7 @@
                         'Elixir.PE.SeriesProduct',
                         'Elixir.PE.SpecialPythagoreanTriplet',
                         'Elixir.PE.SumOfPrimes','Elixir.PE.SumSquare',
-                        'Elixir.Prime','Elixir.ProjectEuler']},
+                        'Elixir.Prime','Elixir.ProjectEuler',
+                        'Elixir.TriangleNumbers']},
               {registered,[]},
               {vsn,"0.1.0"}]}.
