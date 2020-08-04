@@ -3,7 +3,7 @@ defmodule PE.Grid do
   def max_horizontal_product(grid, size) do
     max_h = max_horizontal_product(grid, size, 0)
     max_v = max_vertical_product(grid, size, 0)
-    max_d = max_diagonal_product(grid, size, 0)
+    # max_d = max_left_diagonal_product(grid, size, 0)
   end
 
   defp max_horizontal_product(grid, size, current_max) do
