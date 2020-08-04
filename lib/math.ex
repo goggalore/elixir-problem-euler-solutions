@@ -3,6 +3,18 @@ defmodule Math do
   General useful math functions
   """
 
+  @doc """
+  prime_factors(n) gets the prime factors and their powers of a number n,
+  returned as a list of tuples {prime, power}
+
+  ## Examples
+
+      iex> Math.prime_factors(4200)
+      [{7, 1}, {5, 2}, {3, 1}, {2, 3}]
+
+      note: 7^1 * 5 ^ 2 * 3 ^ 1 * 2 ^ 3 == 4200
+  """
+
   @spec multiple?(non_neg_integer, non_neg_integer) :: bool
   def multiple?(divisor, dividend) do
     rem(divisor, dividend) == 0
@@ -30,14 +42,14 @@ defmodule Math do
     prime_factors(n, Prime.get_prime(prime_index), prime_index, 0, [])
   end
 
-  defp prime_factors(n, current_prime, prime_index, current_pow, prime_factors) do
-    new_pf =
+  defp prime_factors(n, current_prime, prime_index, current_pow, prev_prime_factors) do
+    prime_factors =
       if current_pow != 0,
-        do: [{current_prime, current_pow} | prime_factors],
-        else: prime_factors
+        do: [{current_prime, current_pow} | prev_prime_factors],
+        else: prev_prime_factors
 
     if n == 1 do
-      new_pf
+      prime_factors
     else
       if rem(n, current_prime) == 0 do
         prime_factors(
@@ -45,7 +57,7 @@ defmodule Math do
           current_prime,
           prime_index,
           current_pow + 1,
-          prime_factors
+          prev_prime_factors
         )
       else
         new_prime_index = prime_index + 1
@@ -55,7 +67,7 @@ defmodule Math do
           Prime.get_prime(new_prime_index),
           new_prime_index,
           0,
-          new_pf
+          prime_factors
         )
       end
     end
