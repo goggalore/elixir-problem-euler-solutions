@@ -72,4 +72,12 @@ defmodule Math do
       end
     end
   end
+
+  @spec number_of_divisors(non_neg_integer) :: non_neg_integer
+  def number_of_divisors(n) do
+    prime_factors(n)
+    |> Enum.reduce(1, fn {_, power}, acc ->
+      acc * (power + 1)
+    end)
+  end
 end
