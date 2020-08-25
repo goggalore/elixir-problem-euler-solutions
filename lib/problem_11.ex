@@ -1,10 +1,13 @@
 defmodule PE.Grid do
-  # @spec max_horizontal_product([[non_neg_integer]]) :: non_neg_integer
-  def max_horizontal_product(grid, size) do
+  @spec largest_product_hvd([[integer]], integer) :: integer
+  def largest_product_hvd(grid, size) do
     max_h = max_horizontal_product(grid, size, 0)
     max_v = max_vertical_product(grid, size, 0)
     max_dl = max_left_diagonal_product(grid, size, 0)
     max_dr = max_right_diagonal_product(grid, size, 0)
+
+    [max_h, max_v, max_dl, max_dr]
+    |> Enum.max()
   end
 
   defp max_horizontal_product(grid, size, current_max) do
@@ -123,6 +126,6 @@ defmodule PE.Grid do
       [01, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 01, 89, 19, 67, 48]
     ]
 
-    max_horizontal_product(twenty_by_twenty_grid, 4)
+    largest_product_hvd(twenty_by_twenty_grid, 4)
   end
 end
