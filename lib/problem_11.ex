@@ -4,7 +4,7 @@ defmodule PE.Grid do
     max_h = max_horizontal_product(grid, size, 0)
     max_v = max_vertical_product(grid, size, 0)
     max_dl = max_left_diagonal_product(grid, size, 0)
-    # max_dr = max_right_diagonal_product(grid, size, 0)
+    max_dr = max_right_diagonal_product(grid, size, 0)
   end
 
   defp max_horizontal_product(grid, size, current_max) do
@@ -89,6 +89,14 @@ defmodule PE.Grid do
         {_, repositioned} = Enum.split(row, index)
         reposition_for_diagonal_product(remaining_grid, index + 1, [repositioned | acc])
     end
+  end
+
+  def max_right_diagonal_product(grid, size, current_max) do
+    reversed =
+      grid
+      |> Enum.map(&Enum.reverse/1)
+
+    max_left_diagonal_product(reversed, size, current_max)
   end
 
   def log() do
