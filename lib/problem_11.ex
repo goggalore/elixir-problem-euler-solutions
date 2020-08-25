@@ -1,12 +1,12 @@
 defmodule PE.Grid do
   @spec largest_product_hvd([[integer]], integer) :: integer
   def largest_product_hvd(grid, size) do
-    max_h = max_horizontal_product(grid, size, 0)
-    max_v = max_vertical_product(grid, size, 0)
-    max_dl = max_left_diagonal_product(grid, size, 0)
-    max_dr = max_right_diagonal_product(grid, size, 0)
-
-    [max_h, max_v, max_dl, max_dr]
+    [
+      max_horizontal_product(grid, size, 0),
+      max_vertical_product(grid, size, 0),
+      max_left_diagonal_product(grid, size, 0),
+      max_right_diagonal_product(grid, size, 0)
+    ]
     |> Enum.max()
   end
 
