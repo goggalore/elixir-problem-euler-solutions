@@ -3,7 +3,8 @@ defmodule PE.Grid do
   def max_horizontal_product(grid, size) do
     max_h = max_horizontal_product(grid, size, 0)
     max_v = max_vertical_product(grid, size, 0)
-    # max_d = max_left_diagonal_product(grid, size, 0)
+    max_dl = max_left_diagonal_product(grid, size, 0)
+    # max_dr = max_right_diagonal_product(grid, size, 0)
   end
 
   defp max_horizontal_product(grid, size, current_max) do
@@ -35,14 +36,14 @@ defmodule PE.Grid do
     end
   end
 
-  def max_vertical_product(grid, size, current_max) do
+  defp max_vertical_product(grid, size, current_max) do
     reversed_transpose = reverse_and_transpose(grid)
     max_horizontal_product(reversed_transpose, size, current_max)
   end
 
   # we don't care if the tranpose is in order or not,
   # so we reverse and tranpose because it's fast
-  def reverse_and_transpose(grid) do
+  defp reverse_and_transpose(grid) do
     reverse_and_transpose(grid, [], [], [])
   end
 
@@ -63,6 +64,30 @@ defmodule PE.Grid do
 
       [] ->
         reverse_and_transpose(next_grid, [], [], [current_column | columns])
+    end
+  end
+
+  defp max_left_diagonal_product(grid, size, current_max) do
+    if length(grid) < size do
+      current_max
+    else
+      sub_grid = Enum.slice(grid, 0..(size - 1))
+      repositioned = reposition_for_diagonal_product(sub_grid, 0, [])
+      vertical_product = max_vertical_product(repositioned, size, 0)
+      max = if vertical_product > current_max, do: vertical_product, else: current_max
+      [_ | remaining_rows] = grid
+      max_left_diagonal_product(remaining_rows, size, max)
+    end
+  end
+
+  defp reposition_for_diagonal_product(grid, index, acc) do
+    case grid do
+      [] ->
+        acc
+
+      [row | remaining_grid] ->
+        {_, repositioned} = Enum.split(row, index)
+        reposition_for_diagonal_product(remaining_grid, index + 1, [repositioned | acc])
     end
   end
 
