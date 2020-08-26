@@ -56,4 +56,18 @@ defmodule PE.GridTest do
   } do
     assert Grid.max_right_diagonal_product(right_diagonal_grid, 3) == 140
   end
+
+  test "The max any-direction 3 product of the grids are respective", %{
+    grids: grids
+  } do
+    products =
+      grids
+      |> Enum.map(fn {type, grid} -> {type, Grid.max_hvd_product(grid, 3)} end)
+      |> Enum.into(%{})
+
+    assert products.horizontal == 300
+    assert products.vertical == 200
+    assert products.left_diagonal == 360
+    assert products.right_diagonal == 140
+  end
 end
