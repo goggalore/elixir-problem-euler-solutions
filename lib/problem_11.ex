@@ -1,12 +1,14 @@
 defmodule PE.Grid do
   @spec max_hvd_product([[integer]], integer) :: integer
   def max_hvd_product(grid, size) do
-    [
-      max_horizontal_product(grid, size, 0),
-      max_vertical_product(grid, size, 0),
-      max_left_diagonal_product(grid, size, 0),
-      max_right_diagonal_product(grid, size, 0)
+    tasks = [
+      Task.async(fn -> max_horizontal_product(grid, size, 0) end),
+      Task.async(fn -> max_vertical_product(grid, size, 0) end),
+      Task.async(fn -> max_left_diagonal_product(grid, size, 0) end),
+      Task.async(fn -> max_right_diagonal_product(grid, size, 0) end)
     ]
+
+    Enum.map(tasks, &Task.await/1)
     |> Enum.max()
   end
 
